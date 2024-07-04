@@ -25,11 +25,11 @@ const Carousel = () => {
   const settings = {
     dots: true, // Show dots navigation
     infinite: true,
-    speed: 2000,
+    speed: 3000,
     slidesToShow: 1,
     slidesToScroll: 1,
     autoplay: true,
-    autoplaySpeed: 1000, // Auto play speed in milliseconds
+    autoplaySpeed: 5000, // Auto play speed in milliseconds
     adaptiveHeight: true, // Adjusts height based on content
   };
 

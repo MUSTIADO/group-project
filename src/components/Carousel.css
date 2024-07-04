@@ -5,6 +5,7 @@
   width: 80%; /* Adjusted for responsiveness */
   margin: 0 auto; /* Center horizontally */
   position: relative; /* Ensure relative positioning */
+  
 }
 
 /* Style the carousel images */
@@ -21,7 +22,6 @@
 .carousel-caption {
   text-align: center; /* Center-align the text */
   color: #fff; /* White text color */
-  background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent black background */
   padding: 10px; /* Padding around the caption text */
   position: absolute; /* Absolute positioning */
   bottom: 0; /* Stick to the bottom of the image */
