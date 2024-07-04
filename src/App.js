@@ -7,6 +7,8 @@ import Contact from './components/Contact';
 // import Property from './components/Property';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Home from './components/Home';
+import './App.css'; // Import App.css for styling
+
 
 
 const App = () => {
