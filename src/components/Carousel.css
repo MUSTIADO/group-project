@@ -1,0 +1,27 @@
+/* Carousel.css */
+
+/* Style the carousel images */
+.carousel-image {
+    width: 100%;
+    height: 100%;
+  }
+
+  .carousel-container {
+    width: 90vw; /* 80% of the viewport width */
+    margin: 0 auto; /* Center horizontally */
+  }
+  
+  
+  /* Add a semi-transparent background for the caption */
+  .carousel-caption {
+    text-align: center;
+    color: #fff;
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 10px;
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%; /* Adjust width as needed */
+  }
+  
