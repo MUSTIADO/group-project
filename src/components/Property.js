@@ -53,8 +53,7 @@ const Property = () => {
               <img src={property.coverPhoto.url} className="card-img-top" alt={property.title} />
               <div className="card-body">
                 <h5 className="card-title">{property.title}</h5>
-                <p className="card-text">{property.description}</p>
-                <p><strong>Price:</strong> {property.price} USD</p>
+                <p><strong>Price:</strong> {property.price} </p>
                 <p><strong>Location:</strong> {property.location.map(loc => loc.name).join(', ')}</p>
                 <a href={`/property/${property.externalID}`} className="btn btn-primary">View Property</a>
               </div>

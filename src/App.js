@@ -6,6 +6,8 @@ import Register from './components/Register';
 import Contact from './components/Contact';
 import Home from './components/Home';
 import Property from './components/Property'; // Import Property component
+import PropertyDetail from './components/PropertyDetail'; // Assuming you have a PropertyDetail component
+
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css'; // Import App.css for styling
 
@@ -19,6 +21,7 @@ const App = () => {
         <Route path="/register" component={Register} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/property" element={<Property />} /> {/* Add this route */}
+        <Route path="/property/:id" element={<PropertyDetail />} /> {/* PropertyDetail route */}
       </Routes>
     </Router>
   );
