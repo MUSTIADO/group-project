@@ -1,6 +1,7 @@
 // Property.js
+
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom'; // Import Link from React Router
 import './Property.css'; // Import CSS file
 
 const Property = () => {
@@ -40,7 +41,7 @@ const Property = () => {
             <Link to={`/property/${property.id}`} className="card-link">
               <div className="card">
                 <img
-                  src={`http://localhost:5000/${property.imageUrl}`} // Adjust path as per your API response
+                  src={`http://localhost:5000/images/${property.imageUrl}`} // Adjust path as per your API response
                   className="card-img-top"
                   alt={property.name}
                 />

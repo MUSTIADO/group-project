@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, send_from_directory
 from flask_cors import CORS
 
 app = Flask(__name__)
@@ -7,16 +7,18 @@ CORS(app)  # Enable CORS for all routes
 # Example data (replace with your data storage logic)
 properties = [
     {'id': 1, 'name': 'Property 1', 'location': 'MOMBASA', 'imageUrl': 'Property1.jpeg', 'price': 250000},
-    {'id': 2, 'name': 'Property 2', 'location': 'City B', 'imageUrl': 'Property2.jpeg', 'price': 350000},
-    {'id': 3, 'name': 'Property 3', 'location': 'City C', 'imageUrl': 'Property3.jpeg', 'price': 450000},
-    {'id': 4, 'name': 'Property 4', 'location': 'City D', 'imageUrl': 'Property4.jpeg', 'price': 550000},
-    {'id': 5, 'name': 'Property 5', 'location': 'City E', 'imageUrl': 'Property5.jpeg', 'price': 650000},
-    {'id': 6, 'name': 'Property 6', 'location': 'City F', 'imageUrl': 'Property5.jpeg', 'price': 750000},
-
+    {'id': 2, 'name': 'Property 2', 'location': 'City B', 'imageUrl': 'Property2.jpg', 'price': 350000},
+    {'id': 3, 'name': 'Property 3', 'location': 'KAREN, NAIROBI', 'imageUrl': 'Property3.jpg', 'price': 450000},
+    {'id': 4, 'name': 'Property 4', 'location': 'City D', 'imageUrl': 'Property4.jpg', 'price': 550000},
+    {'id': 5, 'name': 'Property 5', 'location': 'City E', 'imageUrl': 'Property5.jpg', 'price': 650000},
+    {'id': 6, 'name': 'Property 6', 'location': 'KONZA CITY', 'imageUrl': 'Property6.jpg', 'price': 750000},
 ]
 
+# Serve images from 'images' folder in the project root
+@app.route('/images/<path:filename>')
+def serve_image(filename):
+    return send_from_directory('images', filename)
 
-# Routes
 @app.route('/properties', methods=['GET'])
 def get_properties():
     page = int(request.args.get('page', 1))
