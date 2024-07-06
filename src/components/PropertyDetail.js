@@ -1,28 +1,21 @@
+// PropertyDetail.js
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import './Property.css'; // Import CSS file
 
 const PropertyDetail = () => {
-  const { id } = useParams(); // Accessing the id parameter from the URL
+  const { id } = useParams();
   const [property, setProperty] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    const fetchPropertyDetail = async () => {
+    const fetchProperty = async () => {
       try {
-        const apiKey = process.env.REACT_APP_API_KEY;
-        const url = `https://bayut.p.rapidapi.com/properties/detail?externalID=${id}`;
-        const response = await fetch(url, {
-          headers: {
-            'x-rapidapi-key': apiKey,
-            'x-rapidapi-host': 'bayut.p.rapidapi.com'
-          }
-        });
-
+        const response = await fetch(`http://localhost:5000/properties/${id}`);
         if (!response.ok) {
           throw new Error(`Failed to fetch property ${id}`);
         }
-
         const propertyData = await response.json();
         setProperty(propertyData);
         setLoading(false);
@@ -32,23 +25,27 @@ const PropertyDetail = () => {
       }
     };
 
-    fetchPropertyDetail();
-  }, [id]); // Dependency array ensures fetch is triggered when id changes
+    fetchProperty();
+  }, [id]);
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error.message}</p>;
-  if (!property) return <p>Property not found.</p>;
+  if (!property) return <p>No property found.</p>;
 
   return (
-    <div className="container">
-      <h2>{property.title}</h2>
+    <div className="container property-detail">
+      <h1>Property Details</h1>
       <div className="card">
-        <img src={property.coverPhoto.url} className="card-img-top" alt={property.title} />
+        <img
+          src={`http://localhost:5000/${property.imageUrl}`} // Adjust path as per your API response
+          className="card-img-top"
+          alt={property.name}
+        />
         <div className="card-body">
-          <h5 className="card-title">{property.title}</h5>
-          <p className="card-text">{property.description}</p>
-          <p><strong>Price:</strong> {property.price} USD</p>
-          <p><strong>Location:</strong> {property.location.map(loc => loc.name).join(', ')}</p>
+          <h5 className="card-title">{property.name}</h5>
+          <p><strong>Location:</strong> {property.location}</p>
+          <p><strong>Price:</strong> ${property.price.toLocaleString()}</p>
+          {/* Add more details as needed */}
         </div>
       </div>
     </div>
