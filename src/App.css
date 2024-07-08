@@ -13,3 +13,11 @@ body {
 */
 
 /* Additional styles for other elements in your app can be added here */
+body {
+  margin: 0;
+  background-color: #ffffff;
+}
+ 
+.h-100 {
+    margin-top:100px;
+}   
