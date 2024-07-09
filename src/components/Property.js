@@ -1,5 +1,6 @@
+// Property.js
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom'; // Import Link for navigation
 import './Property.css';
 import Payment from './Payment'; // Import Payment component
 
@@ -49,11 +50,10 @@ const Property = () => {
   const handleBuyClick = (property) => {
     if (isLoggedIn) {
       setSelectedProperty(property);
-      // Navigate to the payment section for the selected property
-      navigate(`/property/${property.id}/payment`);
+      setShowPaymentMethods(true); // Show payment modal
     } else {
-      // Redirect to the payment page if not logged in
-      navigate('/payment');
+      // Redirect to login or payment page if not logged in
+      navigate('/payment'); // Replace with your login route
     }
   };
 
@@ -111,6 +111,11 @@ const Property = () => {
           Payment successful! Thank you for your purchase.
         </div>
       )}
+
+      {/* Link to Payment Page */}
+      <Link to="/payment" className="btn btn-secondary mt-3">
+        Go to Payment
+      </Link>
     </div>
   );
 };

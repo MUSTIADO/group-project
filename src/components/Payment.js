@@ -1,83 +1,74 @@
+// Payment.js
 import React, { useState } from 'react';
 
-const Payment = ({ selectedProperty, onComplete }) => {
-  const [selectedMethod, setSelectedMethod] = useState(null);
-  const [paymentStatus, setPaymentStatus] = useState(null);
+const Payment = () => {
+  const [cardNumber, setCardNumber] = useState('');
+  const [expiryDate, setExpiryDate] = useState('');
+  const [cvv, setCvv] = useState('');
+  const [processing, setProcessing] = useState(false);
+  const [error, setError] = useState(null);
 
-  const handlePaymentMethodSelect = (method) => {
-    setSelectedMethod(method);
-  };
+  const handlePaymentSubmit = async (event) => {
+    event.preventDefault();
+    try {
+      setProcessing(true);
+      // Simulate payment processing (replace with actual payment logic)
+      await new Promise(resolve => setTimeout(resolve, 2000)); // Simulate 2 second delay
 
-  const handleProcessPayment = async () => {
-    if (selectedMethod) {
-      try {
-        // Simulate payment processing (replace with actual payment integration)
-        const response = await fetch('http://localhost:5000/process-payment', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            propertyId: selectedProperty.id,
-            paymentMethod: selectedMethod,
-          }),
-        });
-
-        if (!response.ok) {
-          throw new Error('Failed to process payment');
-        }
-
-        // Assuming backend confirms payment
-        setPaymentStatus('success'); // Set payment status to success
-        onComplete(true); // Notify parent component that payment is complete
-      } catch (error) {
-        console.error('Payment processing error:', error);
-        setPaymentStatus('error'); // Set payment status to error
-        onComplete(false); // Notify parent component that payment failed
-      }
+      // Assuming payment succeeds in this example
+      console.log('Payment successful!');
+    } catch (error) {
+      setError('Payment failed. Please try again.');
+    } finally {
+      setProcessing(false);
     }
   };
 
   return (
-    <div className="modal">
-      <div className="modal-content">
-        <span className="close" onClick={() => onComplete(false)}>&times;</span>
-        <h2>Select Payment Method</h2>
-        <p>You are purchasing: {selectedProperty.name}</p>
-        
-        {/* Payment Methods Section */}
-        <div className="payment-methods">
-          <button onClick={() => handlePaymentMethodSelect('Credit Card')}>
-            Credit Card
-          </button>
-          <button onClick={() => handlePaymentMethodSelect('PayPal')}>
-            PayPal
-          </button>
-          <button onClick={() => handlePaymentMethodSelect('M-Pesa')}>
-            M-Pesa
-          </button>
+    <div className="container">
+      <h1>Payment Page</h1>
+      {error && <div className="alert alert-danger">{error}</div>}
+      <form onSubmit={handlePaymentSubmit}>
+        <div className="form-group">
+          <label htmlFor="cardNumber">Card Number</label>
+          <input
+            type="text"
+            className="form-control"
+            id="cardNumber"
+            value={cardNumber}
+            onChange={(e) => setCardNumber(e.target.value)}
+            required
+          />
         </div>
-        
-        {/* Process Payment Button */}
-        <div>
-          <button onClick={handleProcessPayment} className="btn btn-primary">
-            Process Payment
-          </button>
+        <div className="form-row">
+          <div className="form-group col-md-6">
+            <label htmlFor="expiryDate">Expiry Date</label>
+            <input
+              type="text"
+              className="form-control"
+              id="expiryDate"
+              value={expiryDate}
+              onChange={(e) => setExpiryDate(e.target.value)}
+              placeholder="MM/YYYY"
+              required
+            />
+          </div>
+          <div className="form-group col-md-6">
+            <label htmlFor="cvv">CVV</label>
+            <input
+              type="text"
+              className="form-control"
+              id="cvv"
+              value={cvv}
+              onChange={(e) => setCvv(e.target.value)}
+              required
+            />
+          </div>
         </div>
-
-        {/* Payment Status Message */}
-        {paymentStatus === 'success' && (
-          <div className="alert alert-success mt-3" role="alert">
-            Payment successful! Thank you for your purchase.
-          </div>
-        )}
-
-        {paymentStatus === 'error' && (
-          <div className="alert alert-danger mt-3" role="alert">
-            Payment failed. Please try again later.
-          </div>
-        )}
-      </div>
+        <button type="submit" className="btn btn-primary" disabled={processing}>
+          {processing ? 'Processing...' : 'Pay Now'}
+        </button>
+      </form>
     </div>
   );
 };

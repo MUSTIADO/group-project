@@ -26,7 +26,7 @@ const App = () => {
         <Route path="/property" element={<Property />} /> {/* Add this route */}
         <Route path="/property/:id/" element={<PropertyDetail />} /> {/* PropertyDetail route */}
         <Route path="/about" element={<About />} />
-        <Route path="/property/:id/payment" element={<Payment />} /> {/* Payment route */}
+        <Route path="/payment" element={<Payment />} /> {/* Payment route */}
 
       </Routes>
     </Router>
