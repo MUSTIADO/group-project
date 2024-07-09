@@ -26,7 +26,7 @@ export default function Register() {
         console.log(data);
         setSuccessMessage('Registration successful!');
         setErrorMessage('');
-        navigate("/");
+        navigate("/login");
       })
       .catch((error) => {
         console.error("Error:", error);

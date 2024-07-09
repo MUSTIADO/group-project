@@ -120,6 +120,25 @@ def delete_property(id):
     properties = [prop for prop in properties if prop['id'] != id]
     return '', 204
 
+# Endpoint to process payment
+@app.route('/process-payment', methods=['POST'])
+def process_payment():
+    try:
+        data = request.json
+        property_id = data.get('propertyId')
+        payment_method = data.get('paymentMethod')
+
+        # Simulate processing payment
+        # Add actual payment processing logic here (e.g., integrating with a payment gateway)
+        # For demonstration purposes, just log and return success
+        print(f"Processing payment for Property ID: {property_id} with method: {payment_method}")
+        
+        return jsonify({"message": "Payment processed successfully"}), 200
+    
+    except Exception as e:
+        print(f"Payment processing error: {str(e)}")
+        return jsonify({"error": "Payment processing failed"}), 500
+
 # Error handlers
 @app.errorhandler(404)
 def not_found(error):

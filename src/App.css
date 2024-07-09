@@ -1,23 +1,126 @@
 /* App.css */
 
-/* Assuming you want to change the background color of the whole app */
+/* General Styles */
 body {
-  background-color: #0b7979;
-}
-
-/* If your App component has a specific class or ID */
-/*
-.App {
-  background-color: orange;
-}
-*/
-
-/* Additional styles for other elements in your app can be added here */
-body {
+  font-family: 'Arial', sans-serif;
+  background-color: #f8f9fa;
+  color: #333;
   margin: 0;
-  background-color: #ffffff;
+  padding: 0;
 }
- 
-.h-100 {
-    margin-top:100px;
-}   
+
+.container {
+  padding: 20px;
+}
+
+/* Navbar Styles */
+.navbar {
+  background-color: #007bff;
+}
+
+.navbar-brand, .navbar-nav .nav-link {
+  color: #fff !important;
+}
+
+.navbar-brand:hover, .navbar-nav .nav-link:hover {
+  color: #d1ecf1 !important;
+}
+
+/* Home Page Styles */
+.home-container {
+  text-align: center;
+  padding: 50px 0;
+}
+
+.home-title {
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+}
+
+.home-description {
+  font-size: 1.2rem;
+  margin-bottom: 40px;
+}
+
+/* Property List Styles */
+.property-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}
+
+.property-card {
+  width: 300px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.property-card img {
+  width: 100%;
+  height: auto;
+}
+
+.property-card-body {
+  padding: 15px;
+}
+
+/* Property Detail Styles */
+.property-detail {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+}
+
+.property-detail img {
+  width: 100%;
+  max-width: 600px;
+  margin-bottom: 20px;
+}
+
+.property-detail-content {
+  max-width: 800px;
+}
+
+/* Form Styles */
+.form-container {
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-control {
+  border-radius: 0;
+}
+
+.btn-primary {
+  background-color: #007bff;
+  border-color: #007bff;
+}
+
+.btn-primary:hover {
+  background-color: #0056b3;
+  border-color: #0056b3;
+}
+
+/* Footer Styles */
+.footer {
+  background-color: #343a40;
+  color: #fff;
+  text-align: center;
+  padding: 10px 0;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}

@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Property.css';
+import Payment from './Payment'; // Import Payment component
 
 const Property = () => {
   const [properties, setProperties] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [isLoggedIn, setIsLoggedIn] = useState(false); // Track login status
   const [selectedProperty, setSelectedProperty] = useState(null);
   const [showPaymentMethods, setShowPaymentMethods] = useState(false);
   const [paymentComplete, setPaymentComplete] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false); // Track login status
   const navigate = useNavigate(); // useNavigate hook for navigation
 
   useEffect(() => {
@@ -48,42 +49,20 @@ const Property = () => {
   const handleBuyClick = (property) => {
     if (isLoggedIn) {
       setSelectedProperty(property);
-      setShowPaymentMethods(true);
+      // Navigate to the payment section for the selected property
+      navigate(`/property/${property.id}/payment`);
     } else {
-      // Redirect to login page if not logged in
-      navigate('/login');
+      // Redirect to the payment page if not logged in
+      navigate('/payment');
     }
   };
 
-  const handlePaymentMethodSelect = async (method) => {
-    try {
-      // Simulate payment processing (replace with actual payment integration)
-      const response = await fetch('http://localhost:5000/process-payment', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          propertyId: selectedProperty.id,
-          paymentMethod: method,
-        }),
-      });
-
-      if (!response.ok) {
-        throw new Error('Failed to process payment');
-      }
-
-      // Assuming backend confirms payment
+  const handlePaymentComplete = (success) => {
+    if (success) {
       setPaymentComplete(true);
-    } catch (error) {
-      console.error('Payment processing error:', error);
     }
-  };
-
-  const handlePaymentClose = () => {
     setShowPaymentMethods(false);
-    setSelectedProperty(null); // Reset selected property
-    setPaymentComplete(false); // Reset payment complete status
+    setSelectedProperty(null);
   };
 
   if (loading) return <p>Loading...</p>;
@@ -120,31 +99,16 @@ const Property = () => {
       
       {/* Payment Methods Modal */}
       {showPaymentMethods && (
-        <div className="modal">
-          <div className="modal-content">
-            <span className="close" onClick={handlePaymentClose}>&times;</span>
-            {!paymentComplete ? (
-              <>
-                <h2>Select Payment Method</h2>
-                <p>You are purchasing: {selectedProperty.name}</p>
-                <button onClick={() => handlePaymentMethodSelect('Credit Card')}>
-                  Credit Card
-                </button>
-                <button onClick={() => handlePaymentMethodSelect('PayPal')}>
-                  PayPal
-                </button>
-                <button onClick={() => handlePaymentMethodSelect('M-Pesa')}>
-                  M-Pesa
-                </button>
-                {/* Add more payment methods as needed */}
-              </>
-            ) : (
-              <>
-                <h2>Payment Successful!</h2>
-                <p>Thank you for purchasing {selectedProperty.name}.</p>
-              </>
-            )}
-          </div>
+        <Payment
+          selectedProperty={selectedProperty}
+          onComplete={handlePaymentComplete}
+        />
+      )}
+
+      {/* Optional: Show payment success message */}
+      {paymentComplete && (
+        <div className="alert alert-success mt-3" role="alert">
+          Payment successful! Thank you for your purchase.
         </div>
       )}
     </div>
